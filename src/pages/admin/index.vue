@@ -114,7 +114,6 @@
         </view>
 
         <!-- 消息提示 -->
-        <u-notify ref="uNotify"></u-notify>
         <u-toast ref="uToast"></u-toast>
         <!-- 模态框 -->
         <u-modal :show="show" :title="title" :content='content' @confirm="onConfirm" showCancelButton
@@ -156,7 +155,13 @@ export default {
     methods: {
         // #ifdef MP-WEIXIN
         onWxLogin() {
-
+            // 通过这个api获取临时登录凭证
+            uni.login({
+                provider: 'weixin',
+                success: (res) => {
+                    let code = res.code ?? '';
+                }
+            });
         },
         // #endif
         onConfirm() {
