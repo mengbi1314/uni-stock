@@ -6,6 +6,11 @@ Vue.config.productionTip = false
 
 App.mpType = 'app'
 
+// 引入uView UI
+import uView from "uview-ui";
+//挂载uView
+Vue.use(uView);
+
 const app = new Vue({
   ...App
 })
