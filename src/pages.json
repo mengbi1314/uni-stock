@@ -1,15 +1,54 @@
 {
+	"easycom": {
+		"^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
+	},
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "uni-app"
+				"navigationBarTitleText": "控制台"
+			}
+		},
+		{
+			"path": "pages/manage/index",
+			"style": {
+				"navigationBarTitleText": "管理"
+			}
+		},
+		{
+			"path": "pages/admin/index",
+			"style": {
+				"navigationBarTitleText": "我的"
 			}
 		}
 	],
+	"tabBar": {
+		"color": "#2c3e50",
+		"selectedColor": "#18bc9c",
+		"list": [
+			{
+				"pagePath": "pages/index/index",
+				"text": "控制台",
+				"iconPath": "/static/images/dashboard.png",
+				"selectedIconPath": "/static/images/dashboard_active.png"
+			},
+			{
+				"pagePath": "pages/manage/index",
+				"text": "管理",
+				"iconPath": "/static/images/index.png",
+				"selectedIconPath": "/static/images/index_active.png"
+			},
+			{
+				"pagePath": "pages/admin/index",
+				"text": "我的",
+				"iconPath": "/static/images/my.png",
+				"selectedIconPath": "/static/images/my_active.png"
+			}
+		]
+	},
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "uni-app",
+		"navigationBarTitleText": "stock助手",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
 	}
