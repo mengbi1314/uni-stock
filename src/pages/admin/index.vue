@@ -158,8 +158,43 @@ export default {
             // 通过这个api获取临时登录凭证
             uni.login({
                 provider: 'weixin',
-                success: (res) => {
+                success: async (res) => {
+                    // 获取临时登录凭证
                     let code = res.code ?? '';
+                    // 发起请求到后端那里
+                    let result = await this.$u.api.admin.WxLogin({ code: code })
+
+                    if (result.code === 0) {
+                        this.$refs.uToast.show({
+                            type: 'error',
+                            message: result.msg,
+                            complete: () => {
+                                if (result.data.action === 'bind') {
+                                    this.$u.route({
+                                        url: 'pages/admin/bind',
+                                        params: {
+                                            openid: result.data.openid
+                                        }
+                                    });
+                                }
+                            }
+                        });
+
+                        return;
+                    } else {
+                        this.$refs.uToast.show({
+                            type: 'success',
+                            message: result.msg,
+                            complete: () => {
+                                // 登录信息存储到本地缓存
+                                uni.setStorageSync('LoginAdmin', result.data);
+
+                                this.LoginAdmin = result.data;
+                            }
+                        });
+
+                        return;
+                    }
                 }
             });
         },
@@ -169,7 +204,7 @@ export default {
         }
     },
 }
-</script>
+</script >
 
 <style>
 page {

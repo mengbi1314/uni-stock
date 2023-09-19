@@ -5,7 +5,6 @@ const files = require.context("./", true, /index.js$/);
 const modules = {};
 
 files.keys().forEach((key) => {
-    console.log(key);
     if (key === "./index.js") return;
 
     const item = files(key).default;
