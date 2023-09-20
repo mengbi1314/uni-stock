@@ -150,6 +150,7 @@ export default {
                     title: '回访记录'
                 }
             ],
+            action: 'logout'
         }
     },
     methods: {
@@ -200,9 +201,82 @@ export default {
         },
         // #endif
         onConfirm() {
+            let action = this.action;
 
+            this.show = false;
+
+            switch (action) {
+                case 'logout':
+                    uni.removeStorageSync('LoginAdmin');
+                    this.$refs.uToast.show({
+                        type: 'success',
+                        message: '退出成功',
+                        complete: () => {
+                            this.LoginAdmin = {};
+                        }
+                    });
+                    break;
+
+                case 'ubinding':
+                    this.ubinding();
+                    break;
+            }
+        },
+        logout() {
+            this.show = true;
+            this.title = '退出账号';
+            this.content = '是否确认退出当前账号？'
+            this.action = 'logout';
+        },
+        changOperation(name) {
+            switch (name) {
+                case 'checkmark-circle-fill':
+                    this.show = true;
+                    this.title = '微信登录解绑';
+                    this.content = '是否确认解绑微信登录？如果解绑成功后就不能使用微信登录';
+                    this.action = 'ubinding';
+                    break;
+            }
+        },
+        async ubinding() {
+            let data = {
+                id: this.LoginAdmin.id
+            }
+
+            let result = await this.$u.api.admin.unbinding(data);
+
+            if (result.code === 0) {
+                this.$refs.uToast.show({
+                    type: 'error',
+                    message: result.msg,
+                });
+
+                return;
+            } else {
+                this.$refs.uToast.show({
+                    type: 'success',
+                    message: result.msg,
+                    complete: () => {
+
+                        uni.removeStorageSync('LoginAdmin');
+
+                        this.LoginAdmin = {};
+                    }
+                });
+
+                return;
+            }
+        },
+        // #ifdef H5 || APP-PLUS
+        toLogin() {
+            this.$u.route('pages/admin/login');
         }
+        // #endif
     },
+    // 监听页面显示。页面每次出现在屏幕上都触发，包括从下级页面点返回露出当前页面
+    onShow() {
+        this.LoginAdmin = uni.getStorageSync('LoginAdmin') ? uni.getStorageSync('LoginAdmin') : {};
+    }
 }
 </script >
 
