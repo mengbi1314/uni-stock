@@ -32,6 +32,12 @@
 			"style": {
 				"navigationBarTitleText": "用户协议"
 			}
+		},
+		{
+			"path": "pages/admin/login",
+			"style": {
+				"navigationBarTitleText": "登录"
+			}
 		}
 	],
 	"tabBar": {
