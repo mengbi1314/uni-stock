@@ -61,7 +61,12 @@ export default {
                     trigger: ['blur', 'change']
                 },]
             },
-            LoginAdmin: {},
+            LoginAdmin: {
+                nickname: '',
+                password: '',
+                mobile: '',
+                email: ''
+            },
             fileList: []
         }
     },
@@ -109,6 +114,49 @@ export default {
                 }
             }
 
+        },
+        submit() {
+            this.$refs.uForm.validate().then(async () => {
+                let data = {
+                    id: this.LoginAdmin.id,
+                    nickname: this.LoginAdmin.nickname,
+                    mobile: this.LoginAdmin.mobile,
+                    email: this.LoginAdmin.email
+                }
+
+                let password = this.LoginAdmin.password ? this.LoginAdmin.password.trim() : '';
+
+                if (password) {
+                    data.password = password
+                }
+
+                let result = await this.$u.api.admin.profile(data);
+
+                if (result.code === 0) {
+                    this.$refs.uToast.show({
+                        type: 'error',
+                        message: result.msg,
+                    });
+
+                    return;
+                } else {
+                    this.$refs.uToast.show({
+                        type: 'success',
+                        message: result.msg,
+                        complete: () => {
+                            uni.setStorageSync('LoginAdmin', result.data);
+
+                            this.$u.route({
+                                type: 'back'
+                            });
+                        }
+                    });
+                    return;
+                }
+
+            }).catch((error) => {
+                console.log(error)
+            });
         }
     },
     onReady() {
