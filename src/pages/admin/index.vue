@@ -236,6 +236,10 @@ export default {
                     this.content = '是否确认解绑微信登录？如果解绑成功后就不能使用微信登录';
                     this.action = 'ubinding';
                     break;
+
+                case 'coupon-fill':
+                    this.$u.route('pages/admin/profile');
+                    break;
             }
         },
         async ubinding() {

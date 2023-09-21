@@ -38,6 +38,12 @@
 			"style": {
 				"navigationBarTitleText": "登录"
 			}
+		},
+		{
+			"path": "pages/admin/profile",
+			"style": {
+				"navigationBarTitleText": "修改资料"
+			}
 		}
 	],
 	"tabBar": {

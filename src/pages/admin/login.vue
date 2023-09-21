@@ -66,8 +66,37 @@ export default {
     },
     methods: {
         onLogin() {
-            this.$refs.uForm.validate().then(() => {
+            this.$refs.uForm.validate().then(async () => {
+                // H5或者APP端登录它不需要openid
+                let data = {
+                    username: this.userInfo.username,
+                    password: this.userInfo.password
+                }
 
+                let result = await this.$u.api.admin.login(data);
+
+                if (result.code === 0) {
+                    this.$refs, uToast.show({
+                        type: 'error',
+                        message: result.msg,
+                    });
+
+                    return;
+                } else {
+                    this.$refs.uToast.show({
+                        type: 'success',
+                        message: result.msg,
+                        complete: () => {
+                            uni.setStorageSync('LoginAdmin', result.data);
+
+                            this.$u.route({
+                                type: 'back'
+                            });
+                        }
+                    });
+
+                    return;
+                }
             }).catch(() => { });
         }
     },
