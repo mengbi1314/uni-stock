@@ -56,6 +56,12 @@
 			"style": {
 				"navigationBarTitleText": "添加客户来源"
 			}
+		},
+		{
+			"path": "pages/manage/source/edit",
+			"style": {
+				"navigationBarTitleText": "编辑客户来源"
+			}
 		}
 	],
 	"tabBar": {

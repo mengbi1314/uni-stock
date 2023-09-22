@@ -42,20 +42,63 @@ export default {
                 bottom: '0px'
             },
             LoginAdmin: {},
-            title: '',
-            content: '',
-            show: false
+            title: '删除客户来源',
+            content: '是否确认删除该客户来源？',
+            show: false,
+            id: 0,// 客户来源id
         }
     },
     methods: {
-        confirm() {
+        async confirm() {
+            this.show = false;
 
+            let data = {
+                id: this.id,
+                adminid: this.LoginAdmin.id
+            }
+
+            let result = await this.$u.api.manage.SourceDel(data);
+
+            if (result.code === 0) {
+                this.$refs.uToast.show({
+                    type: 'error',
+                    message: result.msg
+                });
+
+                return;
+            } else {
+                this.$refs.uToast.show({
+                    type: 'success',
+                    message: result.msg,
+                    complete: () => {
+                        this.getSourceData();
+                    }
+                });
+
+                return;
+            }
         },
         toAdd() {
             this.$u.route('pages/manage/source/add');
         },
-        changeOperation() {
+        changeOperation(res) {
+            let index = res.index;
 
+            switch (index) {
+                case 0:
+                    this.$u.route({
+                        url: 'pages/manage/source/edit',
+                        params: {
+                            id: res.name
+                        }
+                    });
+                    break;
+
+                case 1:
+                    this.show = true;
+                    this.id = res.name;
+                    break;
+            }
         },
         async getSourceData() {
             let result = await this.$u.api.manage.SourceIndex({ adminid: this.LoginAdmin.id });
