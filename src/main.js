@@ -18,8 +18,12 @@ const app = new Vue({
 // 引入请求封装，将app参数传递到配置中
 require("services/request.js")(app);
 
+//引入自定义方法
+import auth from '@/services/auth.js';
+Vue.use(auth, app);
+
 // 引入接口
 import api from '@/api/index';
 
-Vue.use(api, app)
+Vue.use(api, app);
 app.$mount()
