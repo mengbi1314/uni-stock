@@ -83,10 +83,39 @@ export default {
 			});
 		},
 		onApply(businessid) {
+			this.show = true;
+			this.busid = businessid;
 
 		},
 		async confirm() {
+			this.show = false;
 
+
+			let data = {
+				busid: this.busid,
+				adminid: this.LoginAdmin.id
+			}
+
+			let result = await this.$u.api.manage.HighseaApply(data);
+
+			if (result.code === 0) {
+				this.$refs.uToast.show({
+					type: 'error',
+					message: result.msg,
+				});
+
+				return;
+			} else {
+				this.$refs.uToast.show({
+					type: 'success',
+					message: result.msg,
+					complete: () => {
+
+						this.getData();
+					}
+				});
+				return;
+			}
 		}
 	},
 	onShow() {
