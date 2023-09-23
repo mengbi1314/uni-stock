@@ -6,5 +6,9 @@ export default {
     ControllerBusiness: {
         url: 'index/business',
         method: 'POST'
+    },
+    ControllerVisit: {
+        url: 'index/visit',
+        method: 'POST'
     }
 }

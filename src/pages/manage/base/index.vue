@@ -70,12 +70,16 @@ export default {
     methods: {
         // 点击官格事件
         changeGrid(name) {
-            let check = this.$u.auth.check();
+            let check = this.$u.auth.check()
 
             if (check === true) {
                 switch (name) {
                     case 1:
                         this.$u.route('pages/manage/source/index');
+                        break;
+
+                    case 2:
+                        this.$u.route('pages/manage/highsea/index');
                         break;
                 }
             }
