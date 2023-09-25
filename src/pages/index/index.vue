@@ -45,7 +45,7 @@
 		</view>
 	</view>
 </template>
-
+  
 <script>
 export default {
 	data() {
@@ -184,11 +184,13 @@ export default {
 		this.getTotalData();
 		this.getBusinessData();
 		this.getVisitData();
+		this.getReceiveData();
+		this.getOrderData();
+		this.getSourceData();
 	},
 	methods: {
 		async getTotalData() {
 			let result = await this.$u.api.controller.ControllerTotal();
-
 			this.total = result.data;
 		},
 		async getBusinessData() {
@@ -231,11 +233,60 @@ export default {
 				};
 				this.VisitData = JSON.parse(JSON.stringify(res));
 			}, 500);
+		},
+		async getReceiveData() {
+			let result = await this.$u.api.controller.ControllerReceive()
+
+			setTimeout(() => {
+				let res = {
+					categories: this.month,
+					series: [{
+						name: "申请",
+						data: result.data.apply
+					},
+					{
+						name: "分配",
+						data: result.data.allot
+					},
+					{
+						name: "回收",
+						data: result.data.recovery
+					}
+					]
+				};
+				this.ReceiveData = JSON.parse(JSON.stringify(res))
+			});
+		},
+		async getOrderData() {
+			let result = await this.$u.api.controller.ControllerOrder()
+
+			setTimeout(() => {
+				let res = {
+					series: [{
+						data: result.data
+					}]
+				};
+				this.OrderData = JSON.parse(JSON.stringify(res));
+			}, 150)
+		},
+		async getSourceData() {
+			let result = await this.$u.api.controller.ControllerSource()
+
+			setTimeout(() => {
+
+				let res = {
+					series: [{
+						data: result.data
+					}]
+				};
+				this.SourceData = JSON.parse(JSON.stringify(res));
+			}, 150);
 		}
 	}
+
 }
 </script>
-
+  
 <style>
 .container {
 	padding: 0px 10px;
