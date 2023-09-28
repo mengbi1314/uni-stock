@@ -74,6 +74,12 @@
 			"style": {
 				"navigationBarTitleText": "客户详情"
 			}
+		},
+		{
+			"path": "pages/manage/subject/order/index",
+			"style": {
+				"navigationBarTitleText": "课程订单"
+			}
 		}
 	],
 	"tabBar": {
