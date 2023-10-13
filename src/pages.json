@@ -76,7 +76,7 @@
 			}
 		},
 		{
-			"path": "pages/manage/subject/order/index",
+			"path": "pages/manage/subject/index",
 			"style": {
 				"navigationBarTitleText": "课程订单"
 			}
