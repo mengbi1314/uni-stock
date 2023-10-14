@@ -100,6 +100,24 @@
 			}
 		},
 		{
+			"path": "pages/manage/visit/index",
+			"style": {
+				"navigationBarTitleText": "回访记录"
+			}
+		},
+		{
+			"path": "pages/manage/visit/add",
+			"style": {
+				"navigationBarTitleText": "新增回访记录"
+			}
+		},
+		{
+			"path": "pages/manage/visit/edit",
+			"style": {
+				"navigationBarTitleText": "编辑回访记录"
+			}
+		},
+		{
 			"path": "pages/manage/subject/index",
 			"style": {
 				"navigationBarTitleText": "课程订单"
