@@ -90,6 +90,9 @@ export default {
                     case 5:
                         this.$u.route('pages/manage/visit/index');
                         break;
+                    case 6:
+                        this.$u.route('pages/manage/busrecycle/index');
+                        break;
                     case 7:
                         this.$u.route('pages/manage/subject/index');
                         break;

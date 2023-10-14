@@ -124,6 +124,12 @@
 			}
 		},
 		{
+			"path": "pages/manage/busrecycle/index",
+			"style": {
+				"navigationBarTitleText": "客户回收站"
+			}
+		},
+		{
 			"path": "pages/manage/subject/index",
 			"style": {
 				"navigationBarTitleText": "课程订单"
