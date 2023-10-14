@@ -9,21 +9,23 @@
 				</view>
 				<view slot="label" class="u-slot-label">
 					<view style="color:#909193">
-						<!-- 客户来源：{{ item.source.name ? item.source.name : '未知' }} -->
+						客户来源：{{ item.source.name ? item.source.name : '未知' }}
 					</view>
 					<view class="btn">
 						<u-button type="primary" :customStyle="btnStyle" size="mini" text="详情"
-							@click="Toinfo(item.id)"></u-button>
+							@click="getToinfo(item.id)"></u-button>
 						<u-button type="success" :customStyle="btnStyle" size="mini" text="分配"
-							@click="Toallot(item)"></u-button>
+							@click="getToallot(item.id)"></u-button>
 						<u-button type="warning" :customStyle="btnStyle" size="mini" text="申请"
-							@click="onApply(item.id)"></u-button>
+							@click="getapplydata(item.id)"></u-button>
 					</view>
 				</view>
 			</u-cell>
 		</u-cell-group>
 
-		<u-modal :show="show" :title="title" :content='content' :showCancelButton="true" @confirm="confirm"
+		<u-empty v-if="highseaList.length == 0" class="empty" mode="list"
+			icon="https://cdn.uviewui.com/uview/empty/list.png" />
+		<u-modal :show="show" :content='content' :showCancelButton="true" @confirm="confirm"
 			@cancel="show = false"></u-modal>
 		<u-toast ref="uToast"></u-toast>
 	</view>
@@ -45,8 +47,7 @@ export default {
 			show: false,
 			content: '是否确认申请该客户?',
 			// 客户id
-			busid: 0,
-			title: '申请'
+			id: 0,
 		}
 	},
 	methods: {
@@ -57,14 +58,15 @@ export default {
 
 			let result = await this.$u.api.manage.HighseaIndex(data);
 
-			if (result.code === 0) {
+			if (result.code === 0 && JSON.stringify(result.data) === '[]') {
 				this.$refs.uToast.show({
 					type: 'error',
 					message: result.msg,
 					duration: 1500,
 					complete: () => {
 						this.$u.route({
-							type: 'back'
+							type: 'navigateTo',
+							url: '/pages/manage/base/index'
 						});
 					}
 				});
@@ -74,47 +76,50 @@ export default {
 
 			this.highseaList = result.data;
 		},
-		Toinfo(businessid) {
+		getToinfo(busid) {
 			this.$u.route({
-				url: 'pages/manage/highsea/info',
-				params: {
-					businessid
-				}
-			});
+				url: 'pages/manage/highsea/info?id=' + busid
+			})
 		},
-		onApply(businessid) {
-			this.show = true;
-			this.busid = businessid;
+		getToallot(busid) {
+			this.$u.route({
+				url: 'pages/manage/highsea/allot?id=' + busid
+			})
+		},
+		getapplydata(id) {
+			this.show = true
 
+			this.id = id
 		},
 		async confirm() {
-			this.show = false;
-
+			this.show = false
 
 			let data = {
-				busid: this.busid,
-				adminid: this.LoginAdmin.id
+				busid: this.id,
+				adminid: this.LoginAdmin.id,
 			}
 
-			let result = await this.$u.api.manage.HighseaApply(data);
+			let result = await this.$u.api.manage.HighseaApply(data)
 
-			if (result.code === 0) {
-				this.$refs.uToast.show({
-					type: 'error',
-					message: result.msg,
-				});
-
-				return;
-			} else {
+			if (result.code === 1) {
 				this.$refs.uToast.show({
 					type: 'success',
 					message: result.msg,
+					duration: 1500,
 					complete: () => {
-
-						this.getData();
+						this.getData()
 					}
-				});
-				return;
+				})
+
+				return
+			} else {
+				this.$refs.uToast.show({
+					type: 'error',
+					message: result.msg,
+					duration: 1500
+				})
+
+				return
 			}
 		}
 	},
@@ -125,3 +130,9 @@ export default {
 	}
 }
 </script>
+
+<style>
+.empty {
+	margin: auto;
+}
+</style>

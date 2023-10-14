@@ -72,7 +72,13 @@
 		{
 			"path": "pages/manage/highsea/info",
 			"style": {
-				"navigationBarTitleText": "客户详情"
+				"navigationBarTitleText": "公海客户详情"
+			}
+		},
+		{
+			"path": "pages/manage/highsea/allot",
+			"style": {
+				"navigationBarTitleText": "公海客户分配"
 			}
 		},
 		{
