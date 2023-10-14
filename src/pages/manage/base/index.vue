@@ -84,8 +84,11 @@ export default {
                     case 3:
                         this.$u.route('pages/manage/privatesea/index/index');
                         break;
+                    case 4:
+                        this.$u.route('pages/manage/receive/index');
+                        break;
                     case 5:
-                        this.$u.route('pages/manage/visit/index')
+                        this.$u.route('pages/manage/visit/index');
                         break;
                     case 7:
                         this.$u.route('pages/manage/subject/index');
