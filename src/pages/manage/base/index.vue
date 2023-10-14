@@ -81,8 +81,11 @@ export default {
                     case 2:
                         this.$u.route('pages/manage/highsea/index');
                         break;
+                    case 3:
+                        this.$u.route('pages/manage/privatesea/index/index');
+                        break;
                     case 7:
-                        this.$u.route('pages/manage/subject/index')
+                        this.$u.route('pages/manage/subject/index');
                         break;
                 }
             }

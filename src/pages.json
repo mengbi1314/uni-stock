@@ -82,6 +82,24 @@
 			}
 		},
 		{
+			"path": "pages/manage/privatesea/index/index",
+			"style": {
+				"navigationBarTitleText": "客户私海"
+			}
+		},
+		{
+			"path": "pages/manage/privatesea/info/info",
+			"style": {
+				"navigationBarTitleText": "私海客户详情"
+			}
+		},
+		{
+			"path": "pages/manage/privatesea/edit/edit",
+			"style": {
+				"navigationBarTitleText": "私海客户编辑"
+			}
+		},
+		{
 			"path": "pages/manage/subject/index",
 			"style": {
 				"navigationBarTitleText": "课程订单"
